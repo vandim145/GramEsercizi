@@ -7,5 +7,11 @@
 La mia amica è buona. – Моя подруга хорошая (именно эта). Если слово начинается на z или s + согласная, то артикль il становится lo: lo zucchero – сахар lo zio – дядя lo sbaglio – ошибка lo specchio – зеркало </string>
     <string name="artDet">Определенный артикль.  Articolo determinativo</string>
     <string name="title">GrammEsercizi *** Выберите тему упражнений</string>
+    <string name="exit">Выйти</string>
+    <string name="enterAns">Введите правильный ответ</string>
+    <string name="checkAns">Проверить ответ</string>
+    <string name="numOfRiightAns">Количество правильных ответов</string>
+    <string name="next">Дальше</string>
+    <string name="back">Назад</string>
 
 </resources>

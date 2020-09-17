@@ -19,7 +19,7 @@ class GramExList : AppCompatActivity() {
         listViewItems.setOnItemClickListener{parent,view,position,id->
             Toast.makeText(this,"position $position  id $id", Toast.LENGTH_LONG).show()
             val intent= Intent(this, GramExBtn::class.java)
-            intent.putExtra(GramExBtn.NUM_EX,position)
+            intent.putExtra(GramExBtn.Q_ARR,position)
             startActivity(intent)}
     }
 

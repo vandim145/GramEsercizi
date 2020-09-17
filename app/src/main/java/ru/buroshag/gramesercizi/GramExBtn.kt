@@ -3,12 +3,17 @@ package ru.buroshag.gramesercizi
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_gram_ex.*
 import kotlinx.android.synthetic.main.activity_gram_ex_btn.*
 import kotlinx.android.synthetic.main.activity_gram_ex_btn.numbOfRightAns
+import kotlinx.android.synthetic.main.activity_gram_ex_btn.quest
+import kotlinx.android.synthetic.main.activity_gram_ex_btn.res
 import ru.buroshag.gramesercizi.R
+import java.util.*
 
 
 class GramExBtn : AppCompatActivity() {
@@ -22,32 +27,21 @@ class GramExBtn : AppCompatActivity() {
     internal var iTrueAnswers: Int = 0  // количество правильных ответов
     internal var questtxt: String = ""  // Вопрос
     internal var posQuestArr = 0        // позиция пропущенных симбволов в строке вопроса
-    companion object {  const val NUM_EX = "num_ex" }
+    companion object {  const val Q_ARR = "q_arr"
+                        const val IQ_ARR = "iq_arr"
+                        const val ITRUE = "itrue"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gram_ex_btn)
 
-        val numEx=intent.getIntExtra(NUM_EX,1)
-        when (numEx){
-            0 -> questArr = resources.getStringArray(R.array.ex1)   // массив вопросов и ответов
-            1 -> questArr = resources.getStringArray(R.array.ex2)
-            2 -> questArr = resources.getStringArray(R.array.ex3)
-            3 -> questArr = resources.getStringArray(R.array.ex4)   // массив вопросов и ответов
-            4 -> questArr = resources.getStringArray(R.array.ex5)
-            5 -> questArr = resources.getStringArray(R.array.ex6)
-            6 -> questArr = resources.getStringArray(R.array.ex7)
-            7 -> questArr = resources.getStringArray(R.array.ex8)
-            8 -> questArr = resources.getStringArray(R.array.ex9)   // массив вопросов и ответов
-            9 -> questArr = resources.getStringArray(R.array.ex10)
-            10 -> questArr = resources.getStringArray(R.array.ex11)
-            11 -> questArr = resources.getStringArray(R.array.ex12)
+        questArr=intent.getStringArrayExtra(Q_ARR)
+        iquestArr=intent.getIntExtra(IQ_ARR,0)
+        iTrueAnswers=intent.getIntExtra(ITRUE,0)
 
-            else -> Toast.makeText(applicationContext, "чото не так", Toast.LENGTH_LONG).show()
-        }
-
-        iTrueAnswers = 0                                // количество правильных ответов
-
+        val stringText1 = "$iTrueAnswers из ${questArr.size / 7}"
+        numbOfRightAns.text = stringText1 // меняем кол-во правильных вопросов в строке на экране
         // --- формируем вопрос
         posQuestArr = Integer.parseInt(questArr[iquestArr+1]) // второй столбец - где в строке находится вставляемый ответ, заменяется ?? с пробелом
         questtxt = questArr[iquestArr].substring(0, posQuestArr) + "?? " + questArr[iquestArr].substring(posQuestArr) //формируем строку вопроса
@@ -60,24 +54,40 @@ class GramExBtn : AppCompatActivity() {
         answ3.text=questArr[iquestArr+items[2]]
         answ4.text=questArr[iquestArr+items[3]]
         answ5.text=questArr[iquestArr+items[4]]
-
-
     }
 
-    fun onClickA1nextBtn(view: View) {
-        // println(" Вошли  1")
-        res.text = null
-        //println(" Вошли 2")
-        //  ans.setText("")
-        // println(" Вошли  3")
+    fun onClickA1nextBtn(view: View){
         iquestArr += 7
-        wasRight = false
-        //  println(" Вошли  iquestArr = $iquestArr")
+        println(" Btn iquestArr = $iquestArr size ${questArr.size}")
         if (iquestArr >= questArr.size) { // конец массива вопросов
-            val toast = Toast.makeText(applicationContext, "Конец упражнения. Правильных ответов $iTrueAnswers", Toast.LENGTH_LONG)
+            println("Зашел btn")
+            val toast = Toast.makeText(applicationContext, "1 Конец упражнения. Правильных ответов $iTrueAnswers", Toast.LENGTH_LONG)
             toast.show()
-            iquestArr -= 7
+            val intent1=Intent(this, EndOfEx::class.java)
+            intent1.putExtra(Q_ARR,questArr)
+            intent1.putExtra(IQ_ARR,iquestArr)
+            intent1.putExtra(ITRUE,iTrueAnswers)
+            startActivity(intent1)
+            return
         }
+        var randomInt =  (Math.random()*2).toInt()   //случайно переходим в GramEx или нет
+        println("btn randomInt = $randomInt")
+        if (randomInt == 0){                        // Переходим
+            val intent=Intent(this, GramEx::class.java)
+            intent.putExtra(Q_ARR,questArr)
+            intent.putExtra(IQ_ARR,iquestArr)
+            intent.putExtra(ITRUE,iTrueAnswers)
+            println("Переходим в Ex")
+            startActivity(intent)
+            println("не перешли в Ex")
+            return
+        }
+        println("Я здесь btn")
+        res.text = null
+        println("Я здесь btn1")
+        wasRight = false
+        println("Я здесь btn2")
+
         val iQuestArr = Integer.parseInt(questArr[iquestArr + 1])
         questtxt = questArr[iquestArr].substring(0, iQuestArr) + " ?? " + questArr[iquestArr].substring(iQuestArr)
         quest.text = questtxt
@@ -88,6 +98,7 @@ class GramExBtn : AppCompatActivity() {
         answ3.text=questArr[iquestArr+items[2]]
         answ4.text=questArr[iquestArr+items[3]]
         answ5.text=questArr[iquestArr+items[4]]
+        println("Я здесь btn3")
     }
 
     fun onClickBack(view: View) { //  Идем назад
