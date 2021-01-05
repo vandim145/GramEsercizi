@@ -1,6 +1,8 @@
 package ru.buroshag.gramesercizi
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.Color.green
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
@@ -68,5 +70,15 @@ class MainActivity : AppCompatActivity() {
     fun onClickFinish(view: View) {
         this@MainActivity.finish()
         exitProcess(0)
+    }
+
+    fun onClickLearn(view: View) {
+        butTest.setBackgroundColor(Color.RED)
+        butLearn.setBackgroundColor(Color.GREEN)
+
+    }
+    fun onClickTest(view: View) {
+        butTest.setBackgroundColor(Color.GREEN)
+        butLearn.setBackgroundColor(Color.RED)
     }
 }

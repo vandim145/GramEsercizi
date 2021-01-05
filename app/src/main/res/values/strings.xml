@@ -10,7 +10,7 @@ La mia amica è buona. – Моя подруга хорошая (именно э
     <string name="exit">Выйти</string>
     <string name="enterAns">Введите правильный ответ</string>
     <string name="checkAns">Проверить ответ</string>
-    <string name="numOfRiightAns">Количество правильных ответов</string>
+    <string name="numOfRiightAns">Количество правильных ответов </string>
     <string name="next">Дальше</string>
     <string name="back">Назад</string>
 </resources>

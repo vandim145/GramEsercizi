@@ -4,9 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-
     tools:context=".MainActivity">
     <TextView
         android:id="@+id/textView"
@@ -34,4 +33,27 @@
         android:textAlignment="center"
         android:gravity="center_horizontal">
     </ListView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/butLearn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10dp"
+            android:text="Обучение"
+            android:background="@android:color/holo_green_light"
+            android:onClick="onClickLearn"/>
+        <Button
+            android:id="@+id/butTest"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Тест"
+            android:background="@android:color/holo_red_dark"
+            android:onClick="onClickTest"/>
+
+    </LinearLayout>
 </LinearLayout>

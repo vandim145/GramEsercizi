@@ -72,6 +72,7 @@ class GramExBtn : AppCompatActivity() {
             intent1.putExtra(Q_ARR,questArr)
             intent1.putExtra(IQ_ARR,iquestArr)
             intent1.putExtra(ITRUE,iTrueAnswers)
+            intent1.putExtra(GramEx.POS,position)
             startActivity(intent1)
             return
         }
@@ -82,6 +83,7 @@ class GramExBtn : AppCompatActivity() {
             intent.putExtra(Q_ARR,questArr)
             intent.putExtra(IQ_ARR,iquestArr)
             intent.putExtra(ITRUE,iTrueAnswers)
+            intent.putExtra(GramEx.POS,position)
             println("Переходим в Ex")
             startActivity(intent)
             println("не перешли в Ex")

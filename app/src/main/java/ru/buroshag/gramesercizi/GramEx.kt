@@ -19,6 +19,7 @@ class GramEx : AppCompatActivity() {
 
     lateinit var ans: EditText
     internal var wasRight: Boolean = false // был ли уже правильный ответ на текущий вопрос, чтоб не накручивать счетчик правильных  ответов
+    internal var wasNotRight: Boolean = false // был ли уже неправильный ответ на текущий вопрос, чтоб дать еще возможность
     var iTrueAnswers: Int = 0  // количество правильных ответов
     internal var questtxt: String = ""
     var position=""
@@ -83,6 +84,8 @@ class GramEx : AppCompatActivity() {
             intent1.putExtra(Q_ARR,questArr)
             intent1.putExtra(IQ_ARR,iquestArr)
             intent1.putExtra(ITRUE,iTrueAnswers)
+            intent1.putExtra(POS,position)
+
             println("Вошел 2")
             startActivity(intent1)
             return
@@ -95,6 +98,7 @@ class GramEx : AppCompatActivity() {
             intent.putExtra(GramEx.Q_ARR,questArr)
             intent.putExtra(GramEx.IQ_ARR,iquestArr)
             intent.putExtra(GramEx.ITRUE,iTrueAnswers)
+            intent.putExtra(POS,position)
             startActivity(intent)
             return
         }
