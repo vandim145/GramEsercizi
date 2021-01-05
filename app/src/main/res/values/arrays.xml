@@ -5,13 +5,6 @@
 		<item>	Определенный артикль. Articolo determinativo	</item><!-- ex2 -->
 		<item>	Множественное число существительные (окончания). Il plurale dei nomi 	</item><!-- ex3 -->
 		<item>	Множественное число существительные (артикли). Il plurale dei nomi (articoli)	</item><!-- ex4 -->
-		<item>	Спряжение глаголов (Настоящее время). Coniugazione dei verbi (presente)	</item><!-- ex5 -->
-		<item>	Предлоги и артикли. Preposizione articolate	</item><!-- ex6 -->
-		<item>	Спряжение глаголов (Прошедшее время). Coniugazione dei verbi (Passato prossimo)	</item><!-- ex7 -->
-		<item>	Спряжение глаголов (Прошедшее длительное). Coniugazione dei verbi (Passato imperfetto)	</item><!-- ex8 -->
-		<item>	Выбор прошедшее ближайшее или неопределенное. Imperfetto o prossimo passato	</item><!-- ex9 -->
-		<item>	Будущее простое. Futuro semplice	</item><!-- ex10 -->
-		<item>	Сослагательное. Condizionale	</item><!-- ex11 -->
-		<item>	Повелительное. Imperativo	</item><!-- ex12 -->
+		<item>	Предлоги и артикли. Preposizione articolate	</item><!-- ex5 -->
     </string-array>
 </resources>

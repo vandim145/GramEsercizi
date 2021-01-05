@@ -6,6 +6,15 @@
     android:layout_margin="10dp"
     android:orientation="vertical"
     tools:context=".GramExBtn">
+    <TextView
+        android:id="@+id/position_txt_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textSize="20sp"
+        android:layout_gravity="center_horizontal"
+        android:textAlignment="center"
+        android:text=""/>
 
     <TextView
         android:id="@+id/quest"
@@ -66,6 +75,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
         android:orientation="horizontal">
 
         <TextView

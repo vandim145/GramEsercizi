@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_gram_ex.*
+import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
 
@@ -20,10 +21,12 @@ class GramEx : AppCompatActivity() {
     internal var wasRight: Boolean = false // был ли уже правильный ответ на текущий вопрос, чтоб не накручивать счетчик правильных  ответов
     var iTrueAnswers: Int = 0  // количество правильных ответов
     internal var questtxt: String = ""
+    var position=""
     companion object {
         const val Q_ARR = "q_arr"
         const val IQ_ARR = "iq_arr"
         const val ITRUE = "itrue"
+        const val POS="pos"
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +39,9 @@ class GramEx : AppCompatActivity() {
         println("iquestArr= $iquestArr")
         iTrueAnswers=intent.getIntExtra(ITRUE,0)
         println("iTrueAnswers= $iTrueAnswers")
+        position=intent.getStringExtra(POS)
+        println("position= $position")
+        position_txt.setText(position)
 
         val stringText1 = "$iTrueAnswers из ${questArr.size / 7}"
         numbOfRightAns.text = stringText1 // меняем кол-во правильных вопросов в строке на экране
@@ -43,7 +49,8 @@ class GramEx : AppCompatActivity() {
         ans.setOnEditorActionListener(TextView.OnEditorActionListener { _, _, event ->
             if (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER) {
                 // обработка нажатия Enter
-                val answerText = ans.text.toString() // берем ответ
+                val answerText1 = ans.text.toString()
+                val answerText = convertString(answerText1)
                 if (answerText.equals(questArr[iquestArr + 2], ignoreCase = true) && wasRight == false) { // если верно и не было верного ответа на этот вопрос
                     res.text = "Верно"
                     wasRight = true
@@ -99,7 +106,9 @@ class GramEx : AppCompatActivity() {
         quest.text = questtxt
     }
     fun onClickControl(view: View) {
-        val answerText = ans.text.toString()
+        val answerText1 = ans.text.toString()
+        val answerText = convertString(answerText1)
+        println("answerText =$answerText ")
         if (answerText.equals(questArr[iquestArr + 2], ignoreCase = true) && wasRight == false) {
             res.text = "Верно"
             wasRight = true
@@ -116,6 +125,11 @@ class GramEx : AppCompatActivity() {
 
     fun onClickBack(view: View) { //  Идем назад
         startActivity(Intent(this, MainActivity::class.java))
+    }
+    fun convertString( strIn : String) : String {
+        val str1 = strIn.replace("\'","`")
+        val str2 = str1.replace("’’","`")
+        return str2
     }
 }
 

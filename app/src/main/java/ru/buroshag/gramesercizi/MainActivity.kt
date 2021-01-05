@@ -29,15 +29,8 @@ class MainActivity : AppCompatActivity() {
                 2 -> questArr1 = resources.getStringArray(R.array.ex3)
                 3 -> questArr1 = resources.getStringArray(R.array.ex4)
                 4 -> questArr1 = resources.getStringArray(R.array.ex5)
-                5 -> questArr1 = resources.getStringArray(R.array.ex6)
-                6 -> questArr1 = resources.getStringArray(R.array.ex7)
-                7 -> questArr1 = resources.getStringArray(R.array.ex8)
-                8 -> questArr1 = resources.getStringArray(R.array.ex9)
-                9 -> questArr1 = resources.getStringArray(R.array.ex10)
-                10 -> questArr1 = resources.getStringArray(R.array.ex11)
-                11 -> questArr1 = resources.getStringArray(R.array.ex12)
-                else -> Toast.makeText(applicationContext, "чото не так", Toast.LENGTH_LONG).show()
-            }
+                else -> Toast.makeText(applicationContext, "чото не так", Toast.LENGTH_LONG).show()}
+            println(" тема = ${arrItems[position]}")
             var nquestArr = questArr1.size/7                        // Количество задач
             println(" nquestArr = $nquestArr")
             var nquestArr1 = questArr1.size                         // Количество элементов всего
@@ -47,25 +40,27 @@ class MainActivity : AppCompatActivity() {
             questArr.forEach { println( " $it ") }
             var itemsQuestArrList = (0..nquestArr-1).toMutableList() // создаем для с числами
             itemsQuestArrList.shuffle()                            // случайно сортируем
-            itemsQuestArrList.forEach{ println( "itemsQuestArrList $it ")}
+        //    itemsQuestArrList.forEach{ println( "itemsQuestArrList $it ")}
         // -------------- заполняем перемешанный массив вопросов и ответов ----------------
             var j=0
             itemsQuestArrList.forEach{
-                println( " цикл it= $it j= $j")
+         //       println( " цикл it= $it j= $j")
                 for (i in 0 .. 6){
-                    println( " i $i")
-                    println( " индексы ${j*7+i}")
-                    println( " индексы ${it*7+i}")
-                    println( " questArr[j*7+i] ${questArr[j*7+i]}")
-                    println( " questArr1[it+i] ${questArr1[it*7+i]}")
+         //           println( " i $i")
+         //           println( " индексы ${j*7+i}")
+         //           println( " индексы ${it*7+i}")
+         //           println( " questArr[j*7+i] ${questArr[j*7+i]}")
+         //           println( " questArr1[it+i] ${questArr1[it*7+i]}")
                     questArr[j*7+i]=questArr1[it*7+i]
                     println( " questArr[j*7+i] ${questArr[j*7+i]}")
                 }
                 j+=1
             }          // Создаем отсортированный массив
+
             intent.putExtra(GramEx.Q_ARR,questArr)
             intent.putExtra(GramEx.IQ_ARR,iquestArr)
             intent.putExtra(GramEx.ITRUE,iTrueAnswers)
+            intent.putExtra(GramEx.POS,arrItems[position])
             questArr.forEach{ println( " $it ")}
             startActivity(intent)}
     }

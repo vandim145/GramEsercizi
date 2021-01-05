@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.activity_gram_ex_btn.*
 import kotlinx.android.synthetic.main.activity_gram_ex_btn.numbOfRightAns
 import kotlinx.android.synthetic.main.activity_gram_ex_btn.quest
 import kotlinx.android.synthetic.main.activity_gram_ex_btn.res
+import kotlinx.android.synthetic.main.activity_main.*
 import ru.buroshag.gramesercizi.R
 import java.util.*
 
@@ -23,6 +24,7 @@ class GramExBtn : AppCompatActivity() {
     lateinit var questArr: Array<String>  // массив вопросов и ответов
     lateinit var ans: EditText
     var items = (2..6).toMutableList() // --- создаем массив 2 - 6 пяти  чисел (в 0 - сам вопрос, в 1 позиция ответа в строке вопроса
+    var position=""
     internal var wasRight: Boolean = false // был ли уже правильный ответ на текущий вопрос, чтоб не накручивать счетчик правильных  ответов
     internal var iTrueAnswers: Int = 0  // количество правильных ответов
     internal var questtxt: String = ""  // Вопрос
@@ -39,6 +41,9 @@ class GramExBtn : AppCompatActivity() {
         questArr=intent.getStringArrayExtra(Q_ARR)
         iquestArr=intent.getIntExtra(IQ_ARR,0)
         iTrueAnswers=intent.getIntExtra(ITRUE,0)
+        position=intent.getStringExtra(GramEx.POS)
+        println("position= $position")
+        position_txt_btn.setText(position)
 
         val stringText1 = "$iTrueAnswers из ${questArr.size / 7}"
         numbOfRightAns.text = stringText1 // меняем кол-во правильных вопросов в строке на экране

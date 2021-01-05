@@ -6,16 +6,79 @@
     android:layout_margin="10dp"
     android:orientation="vertical"
     tools:context=".GramEx">
+    <TextView
+        android:id="@+id/position_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textSize="20sp"
+        android:layout_gravity="center_horizontal"
+        android:textAlignment="center"
+        android:text=""/>
+
+
+    <TextView
+        android:id="@+id/quest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text=""
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/answer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="@string/enterAns"
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/res"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:text="" />
+
+    <Button
+        android:id="@+id/controlBut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:onClick="onClickControl"
+        android:text="@string/checkAns" />
+
+    <Button
+        android:id="@+id/nextBut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:onClick="onClickA1next"
+        android:text="@string/next" />
+
+    <Button
+        android:id="@+id/backBut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:onClick="onClickBack"
+        android:text="@string/back" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
+
         <TextView
             android:id="@+id/numbOfRightAnsTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:text="@string/numOfRiightAns" />
+
         <TextView
             android:id="@+id/numbOfRightAns"
             android:layout_width="wrap_content"
@@ -24,54 +87,4 @@
             android:gravity="center_horizontal"
             android:text="" />
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/quest"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textSize="24sp" />
-
-    <EditText
-        android:id="@+id/answer"
-        android:layout_marginTop="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:layout_gravity="center_horizontal"
-        android:hint="@string/enterAns" />
-
-    <TextView
-        android:id="@+id/res"
-        android:layout_marginTop="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="" />
-
-    <Button
-        android:id="@+id/controlBut"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="onClickControl"
-        android:text="@string/checkAns" />
-
-    <Button
-        android:id="@+id/nextBut"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="onClickA1next"
-        android:text="@string/next" />
-
-    <Button
-        android:id="@+id/backBut"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="onClickBack"
-        android:text="@string/back" />
 </LinearLayout>
