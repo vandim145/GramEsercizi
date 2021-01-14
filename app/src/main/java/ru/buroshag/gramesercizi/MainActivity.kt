@@ -13,10 +13,11 @@ import kotlin.system.exitProcess
 
 
 class MainActivity : AppCompatActivity() {
-
+    var isTest = false                     //  если режим теста, то true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         var iquestArr = 0                      // общий индекс в массиве вопросов и ответов
         var iTrueAnswers: Int = 0              // количество правильных ответов
         lateinit var questArr1: Array<String>  // массив вопросов и ответов неперемешанный
@@ -24,7 +25,8 @@ class MainActivity : AppCompatActivity() {
         val adapter = ArrayAdapter < String>(this,android.R.layout.simple_list_item_1,arrItems)
         listViewItems.adapter=adapter
         listViewItems.setOnItemClickListener{parent,view,position,id->
-            val intent=Intent(this, GramEx::class.java)
+            var intent=Intent(this, GramEx::class.java)
+            if (isTest) intent=Intent(this, GramExTest::class.java)
             when (position){ // Выбор темы задачи и загрузка массива с задачами
                 0 -> questArr1 = resources.getStringArray(R.array.ex1)   // массив вопросов и ответов неперемешанный
                 1 -> questArr1 = resources.getStringArray(R.array.ex2)
@@ -63,6 +65,7 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra(GramEx.IQ_ARR,iquestArr)
             intent.putExtra(GramEx.ITRUE,iTrueAnswers)
             intent.putExtra(GramEx.POS,arrItems[position])
+            intent.putExtra(GramEx.IS_TEST,isTest)
             questArr.forEach{ println( " $it ")}
             startActivity(intent)}
     }
@@ -73,11 +76,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onClickLearn(view: View) {
+        isTest=false
         butTest.setBackgroundColor(Color.RED)
         butLearn.setBackgroundColor(Color.GREEN)
 
     }
     fun onClickTest(view: View) {
+        isTest=true
         butTest.setBackgroundColor(Color.GREEN)
         butLearn.setBackgroundColor(Color.RED)
     }

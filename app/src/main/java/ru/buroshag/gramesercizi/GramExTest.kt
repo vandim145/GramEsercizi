@@ -11,8 +11,7 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_gram_ex.*
 
 
-
-class GramEx : AppCompatActivity() {
+class GramExTest : AppCompatActivity() {
     var iquestArr = 0                    // общий индекс в массиве вопросов и ответов
     lateinit var questArr: Array<String>  // массив вопросов и ответов
 
@@ -32,7 +31,7 @@ class GramEx : AppCompatActivity() {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_gram_ex)
+        setContentView(R.layout.activity_gram_ex_test)
 
         ans = findViewById(R.id.answer)
         questArr=intent.getStringArrayExtra(Q_ARR)
@@ -76,43 +75,6 @@ class GramEx : AppCompatActivity() {
         quest.text = questtxt // и на экран
     }
 
-    fun onClickA1next(view: View) {
-        iquestArr += 7
-        if (iquestArr >= questArr.size) { // конец массива вопросов
-            println("Вошел 1")
-            val toast = Toast.makeText(applicationContext, " 4 Конец упражнения. Правильных ответов $iTrueAnswers", Toast.LENGTH_LONG)
-            toast.show()
-            val intent1=Intent(this, EndOfEx::class.java)
-            intent1.putExtra(Q_ARR,questArr)
-            intent1.putExtra(IQ_ARR,iquestArr)
-            intent1.putExtra(ITRUE,iTrueAnswers)
-            intent1.putExtra(POS,position)
-
-
-            println("Вошел 2")
-            startActivity(intent1)
-            return
-        }
-        var randomInt =  (Math.random()*2).toInt()   //случайно переходим в GramEx или нет
-        println("ex randomInt = $randomInt")
-        if (randomInt == 0){                        // Переходим
-            println(" Ex1 iquestArr = $iquestArr size ${questArr.size}")
-            val intent=Intent(this, GramExBtn::class.java)
-            intent.putExtra(GramEx.Q_ARR,questArr)
-            intent.putExtra(GramEx.IQ_ARR,iquestArr)
-            intent.putExtra(GramEx.ITRUE,iTrueAnswers)
-            intent.putExtra(POS,position)
-
-            startActivity(intent)
-            return
-        }
-        res.text = null
-        ans.setText(null)
-        wasRight = false
-        val iQuestArr = Integer.parseInt(questArr[iquestArr + 1])
-        questtxt = questArr[iquestArr].substring(0, iQuestArr) + " ?? " + questArr[iquestArr].substring(iQuestArr)
-        quest.text = questtxt
-    }
     fun onClickControl(view: View) {
         val answerText1 = ans.text.toString()
         val answerText = convertString(answerText1)
@@ -129,6 +91,41 @@ class GramEx : AppCompatActivity() {
             else
                 res.text = "Ошибка"
         }
+        iquestArr += 7
+        if (iquestArr >= questArr.size) { // конец массива вопросов
+            println("Вошел 1")
+            val toast = Toast.makeText(applicationContext, " 4 Конец упражнения. Правильных ответов $iTrueAnswers", Toast.LENGTH_LONG)
+            toast.show()
+            val intent1=Intent(this, EndOfEx::class.java)
+            intent1.putExtra(GramEx.Q_ARR,questArr)
+            intent1.putExtra(GramEx.IQ_ARR,iquestArr)
+            intent1.putExtra(GramEx.ITRUE,iTrueAnswers)
+            intent1.putExtra(GramEx.POS,position)
+
+
+            println("Вошел 2")
+            startActivity(intent1)
+            return
+        }
+        var randomInt =  (Math.random()*2).toInt()   //случайно переходим в GramEx или нет
+        println("ex randomInt = $randomInt")
+        if (randomInt == 0){                        // Переходим
+            println(" Ex1 iquestArr = $iquestArr size ${questArr.size}")
+            val intent=Intent(this, GramExBtn::class.java)
+            intent.putExtra(GramEx.Q_ARR,questArr)
+            intent.putExtra(GramEx.IQ_ARR,iquestArr)
+            intent.putExtra(GramEx.ITRUE,iTrueAnswers)
+            intent.putExtra(GramEx.POS,position)
+
+            startActivity(intent)
+            return
+        }
+        res.text = null
+        ans.setText(null)
+        wasRight = false
+        val iQuestArr = Integer.parseInt(questArr[iquestArr + 1])
+        questtxt = questArr[iquestArr].substring(0, iQuestArr) + " ?? " + questArr[iquestArr].substring(iQuestArr)
+        quest.text = questtxt
     }
 
     fun onClickBack(view: View) { //  Идем назад
@@ -140,4 +137,3 @@ class GramEx : AppCompatActivity() {
         return str2
     }
 }
-
