@@ -27,8 +27,7 @@ class GramExTest : AppCompatActivity() {
         const val IQ_ARR = "iq_arr"
         const val ITRUE = "itrue"
         const val POS="pos"
-        const val IS_TEST="isTest"
-    }
+        }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gram_ex_test)
