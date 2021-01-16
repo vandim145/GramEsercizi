@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".GramExTest"></activity>
+        <activity android:name=".GramExBtnTest"></activity>
+        <activity android:name=".GramExTest" />
         <activity android:name=".EndOfEx" />
         <activity android:name=".GramEx" />
         <activity android:name=".GramExList" />

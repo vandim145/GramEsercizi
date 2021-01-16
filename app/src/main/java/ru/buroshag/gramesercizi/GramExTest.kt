@@ -16,7 +16,6 @@ class GramExTest : AppCompatActivity() {
     lateinit var questArr: Array<String>  // массив вопросов и ответов
 
     lateinit var ans: EditText
-    internal var wasRight: Boolean = false // был ли уже правильный ответ на текущий вопрос, чтоб не накручивать счетчик правильных  ответов
     internal var wasNotRight: Boolean = false // был ли уже неправильный ответ на текущий вопрос, чтоб дать еще возможность
     var iTrueAnswers: Int = 0  // количество правильных ответов
     internal var questtxt: String = ""
@@ -42,8 +41,6 @@ class GramExTest : AppCompatActivity() {
         position=intent.getStringExtra(POS)
         println("position= $position")
         position_txt.setText(position)
-
-
         val stringText1 = "$iTrueAnswers из ${questArr.size / 7}"
         numbOfRightAns.text = stringText1 // меняем кол-во правильных вопросов в строке на экране
         // --------------------- обработка нажатия Enter
@@ -52,9 +49,8 @@ class GramExTest : AppCompatActivity() {
                 // обработка нажатия Enter
                 val answerText1 = ans.text.toString()
                 val answerText = convertString(answerText1)
-                if (answerText.equals(questArr[iquestArr + 2], ignoreCase = true) && wasRight == false) { // если верно и не было верного ответа на этот вопрос
+                if (answerText.equals(questArr[iquestArr + 2], ignoreCase = true) ) { // если верно и не было верного ответа на этот вопрос
                     res.text = "Верно"
-                    wasRight = true
                     iTrueAnswers++
                     val stringText1 = "$iTrueAnswers из ${questArr.size / 7}"
                     numbOfRightAns.text = stringText1 // меняем кол-во правильных вопросов в строке на экране
@@ -78,9 +74,8 @@ class GramExTest : AppCompatActivity() {
         val answerText1 = ans.text.toString()
         val answerText = convertString(answerText1)
         println("answerText =$answerText ")
-        if (answerText.equals(questArr[iquestArr + 2], ignoreCase = true) && wasRight == false) {
+        if (answerText.equals(questArr[iquestArr + 2], ignoreCase = true)) {
             res.text = "Верно"
-            wasRight = true
             iTrueAnswers++
             val stringText ="$iTrueAnswers из ${questArr.size/ 7}"
             numbOfRightAns.text = stringText
@@ -110,18 +105,16 @@ class GramExTest : AppCompatActivity() {
         println("ex randomInt = $randomInt")
         if (randomInt == 0){                        // Переходим
             println(" Ex1 iquestArr = $iquestArr size ${questArr.size}")
-            val intent=Intent(this, GramExBtn::class.java)
+            val intent=Intent(this, GramExBtnTest::class.java)
             intent.putExtra(GramEx.Q_ARR,questArr)
             intent.putExtra(GramEx.IQ_ARR,iquestArr)
             intent.putExtra(GramEx.ITRUE,iTrueAnswers)
             intent.putExtra(GramEx.POS,position)
-
             startActivity(intent)
             return
         }
         res.text = null
         ans.setText(null)
-        wasRight = false
         val iQuestArr = Integer.parseInt(questArr[iquestArr + 1])
         questtxt = questArr[iquestArr].substring(0, iQuestArr) + " ?? " + questArr[iquestArr].substring(iQuestArr)
         quest.text = questtxt
