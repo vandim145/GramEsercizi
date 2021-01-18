@@ -63,17 +63,15 @@ class GramExBtnTest : AppCompatActivity() {
             R.id.answ4 -> nAns=questArr[iquestArr+items[3]]
             R.id.answ5 -> nAns=questArr[iquestArr+items[4]]  }
         if (nAns.equals(questArr[iquestArr + 2], ignoreCase = true)){
-            res.text = "Верно"
             val toast = Toast.makeText(applicationContext, "Верно", Toast.LENGTH_SHORT)
             toast.show()
             iTrueAnswers++
             val stringText1 = "$iTrueAnswers из ${questArr.size / 7}"
             numbOfRightAns.text = stringText1 // меняем кол-во правильных вопросов в строке на экране
         }else {
-            if (nAns.equals(questArr[iquestArr + 2], ignoreCase = true))
-                res.text = "Верно" // ответ верен но уже отвечали
-            else
-                res.text = "Ошибка" // неправильный ответ
+            // неправильный ответ
+            val toast = Toast.makeText(applicationContext, "Ошибка", Toast.LENGTH_SHORT)
+            toast.show()
         }
         iquestArr += 7
         //println(" Btn iquestArr = $iquestArr size ${questArr.size}")

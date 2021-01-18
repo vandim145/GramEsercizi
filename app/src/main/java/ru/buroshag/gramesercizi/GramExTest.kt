@@ -12,15 +12,12 @@ import kotlinx.android.synthetic.main.activity_gram_ex.*
 
 
 class GramExTest : AppCompatActivity() {
-    var iquestArr = 0                    // общий индекс в массиве вопросов и ответов
+    var iquestArr = 0                     // общий индекс в массиве вопросов и ответов
     lateinit var questArr: Array<String>  // массив вопросов и ответов
-
     lateinit var ans: EditText
-    internal var wasNotRight: Boolean = false // был ли уже неправильный ответ на текущий вопрос, чтоб дать еще возможность
-    var iTrueAnswers: Int = 0  // количество правильных ответов
-    internal var questtxt: String = ""
+    var iTrueAnswers: Int = 0             // количество правильных ответов
+    internal var questtxt: String = ""    // строка вопросов
     var position=""
-    var isTestGramEx = false
     companion object {
         const val Q_ARR = "q_arr"
         const val IQ_ARR = "iq_arr"
@@ -33,13 +30,13 @@ class GramExTest : AppCompatActivity() {
 
         ans = findViewById(R.id.answer)
         questArr=intent.getStringArrayExtra(Q_ARR)
-        println("questArr= ${questArr.size}")
+        //println("questArr= ${questArr.size}")
         iquestArr=intent.getIntExtra(IQ_ARR,0)
-        println("iquestArr= $iquestArr")
+        //println("iquestArr= $iquestArr")
         iTrueAnswers=intent.getIntExtra(ITRUE,0)
-        println("iTrueAnswers= $iTrueAnswers")
+        //println("iTrueAnswers= $iTrueAnswers")
         position=intent.getStringExtra(POS)
-        println("position= $position")
+        //println("position= $position")
         position_txt.setText(position)
         val stringText1 = "$iTrueAnswers из ${questArr.size / 7}"
         numbOfRightAns.text = stringText1 // меняем кол-во правильных вопросов в строке на экране
@@ -49,21 +46,50 @@ class GramExTest : AppCompatActivity() {
                 // обработка нажатия Enter
                 val answerText1 = ans.text.toString()
                 val answerText = convertString(answerText1)
-                if (answerText.equals(questArr[iquestArr + 2], ignoreCase = true) ) { // если верно и не было верного ответа на этот вопрос
-                    res.text = "Верно"
-                    iTrueAnswers++
+                if (answerText.equals(questArr[iquestArr + 2], ignoreCase = true) ) { // если верно
+                     iTrueAnswers++
                     val stringText1 = "$iTrueAnswers из ${questArr.size / 7}"
                     numbOfRightAns.text = stringText1 // меняем кол-во правильных вопросов в строке на экране
-                } else {
-                    if (answerText.equals(questArr[iquestArr + 2], ignoreCase = true))
-                        res.text = "Верно" // ответ верен но уже отвечали
-                    else
-                        res.text = "Ошибка" // неправильный ответ
+                    val toast = Toast.makeText(applicationContext, "Верно", Toast.LENGTH_SHORT)
+                    toast.show()
+                } else { // неправильный ответ
+                    val toast = Toast.makeText(applicationContext, "Ошибка", Toast.LENGTH_SHORT)
+                    toast.show()
                 }
-                return@OnEditorActionListener true //это если не хотим, чтобы нажатая кнопка обрабатывалась дальше видом, иначе нужно оставить false
+                iquestArr += 7
+                if (iquestArr >= questArr.size) { // конец массива вопросов
+                    //println("Вошел 1")
+                    val toast = Toast.makeText(applicationContext, " Конец упражнения. Правильных ответов $iTrueAnswers", Toast.LENGTH_LONG)
+                    toast.show()
+                    val intent1=Intent(this, EndOfEx::class.java)
+                    intent1.putExtra(GramEx.Q_ARR,questArr)
+                    intent1.putExtra(GramEx.IQ_ARR,iquestArr)
+                    intent1.putExtra(GramEx.ITRUE,iTrueAnswers)
+                    intent1.putExtra(GramEx.POS,position)
+                    //println("Вошел 2")
+                    startActivity(intent1)
+                }
+                res.text = null
+                ans.setText(null)
+                val iQuestArr = Integer.parseInt(questArr[iquestArr + 1])
+                questtxt = questArr[iquestArr].substring(0, iQuestArr) + " ?? " + questArr[iquestArr].substring(iQuestArr)
+                quest.text = questtxt
+                var randomInt =  (Math.random()*2).toInt()   //случайно переходим в GramEx или нет
+                println("ex randomInt = $randomInt")
+                if (randomInt == 0){                        // Переходим
+                    println(" Ex1 iquestArr = $iquestArr size ${questArr.size}")
+                    val intent=Intent(this, GramExBtnTest::class.java)
+                    intent.putExtra(GramEx.Q_ARR,questArr)
+                    intent.putExtra(GramEx.IQ_ARR,iquestArr)
+                    intent.putExtra(GramEx.ITRUE,iTrueAnswers)
+                    intent.putExtra(GramEx.POS,position)
+                    startActivity(intent)
+                }
+
+              //  return@OnEditorActionListener true //это если не хотим, чтобы нажатая кнопка обрабатывалась дальше видом, иначе нужно оставить false
             }
             false
-        })
+        } )
         //---------------------------
         val iQuestArr = Integer.parseInt(questArr[iquestArr+1]) // второй столбец - где в строке находится вставляемый ответ, заменяется ?? с пробелом
         questtxt = questArr[iquestArr].substring(0, iQuestArr) + "?? " + questArr[iquestArr].substring(iQuestArr) //формируем строку вопроса
@@ -75,29 +101,28 @@ class GramExTest : AppCompatActivity() {
         val answerText = convertString(answerText1)
         println("answerText =$answerText ")
         if (answerText.equals(questArr[iquestArr + 2], ignoreCase = true)) {
-            res.text = "Верно"
             iTrueAnswers++
             val stringText ="$iTrueAnswers из ${questArr.size/ 7}"
             numbOfRightAns.text = stringText
+            // правильный ответ
+            val toast = Toast.makeText(applicationContext, "Верно", Toast.LENGTH_SHORT)
+            toast.show()
         } else {
-            if (answerText.equals(questArr[iquestArr + 2], ignoreCase = true))
-                res.text = "Верно"
-            else
-                res.text = "Ошибка"
+            // неправильный ответ
+            val toast = Toast.makeText(applicationContext, "Ошибка", Toast.LENGTH_SHORT)
+            toast.show()
         }
         iquestArr += 7
         if (iquestArr >= questArr.size) { // конец массива вопросов
-            println("Вошел 1")
-            val toast = Toast.makeText(applicationContext, " 4 Конец упражнения. Правильных ответов $iTrueAnswers", Toast.LENGTH_LONG)
+            //println("Вошел 1")
+            val toast = Toast.makeText(applicationContext, " Конец упражнения. Правильных ответов $iTrueAnswers", Toast.LENGTH_LONG)
             toast.show()
             val intent1=Intent(this, EndOfEx::class.java)
             intent1.putExtra(GramEx.Q_ARR,questArr)
             intent1.putExtra(GramEx.IQ_ARR,iquestArr)
             intent1.putExtra(GramEx.ITRUE,iTrueAnswers)
             intent1.putExtra(GramEx.POS,position)
-
-
-            println("Вошел 2")
+            //println("Вошел 2")
             startActivity(intent1)
             return
         }
