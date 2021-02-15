@@ -74,6 +74,7 @@ class GramExBtnTest : AppCompatActivity() {
             toast.show()
         }
         iquestArr += 7
+        val ii=Integer.parseInt(questArr[iquestArr+1])
         //println(" Btn iquestArr = $iquestArr size ${questArr.size}")
         if (iquestArr >= questArr.size) { // конец массива вопросов
             //println("Зашел btn")
@@ -89,7 +90,7 @@ class GramExBtnTest : AppCompatActivity() {
         }
         var randomInt =  (Math.random()*2).toInt()   //случайно переходим в GramEx или нет
         println("btn randomInt = $randomInt")
-        if (randomInt == 0){                        // Переходим
+        if ((randomInt == 0)&&(ii>=0)){                        // Переход имесли совпало и 2й столбец не отрицательный
             val intent= Intent(this, GramExTest::class.java)
             intent.putExtra(Q_ARR,questArr)
             intent.putExtra(IQ_ARR,iquestArr)

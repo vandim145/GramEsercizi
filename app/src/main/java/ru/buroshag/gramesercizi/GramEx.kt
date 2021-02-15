@@ -18,17 +18,14 @@ class GramEx : AppCompatActivity() {
 
     lateinit var ans: EditText
     internal var wasRight: Boolean = false // был ли уже правильный ответ на текущий вопрос, чтоб не накручивать счетчик правильных  ответов
-    internal var wasNotRight: Boolean = false // был ли уже неправильный ответ на текущий вопрос, чтоб дать еще возможность
     var iTrueAnswers: Int = 0  // количество правильных ответов
     internal var questtxt: String = ""
     var position=""
-    var isTestGramEx = false
     companion object {
         const val Q_ARR = "q_arr"
         const val IQ_ARR = "iq_arr"
         const val ITRUE = "itrue"
         const val POS="pos"
-        const val IS_TEST="isTest"
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,13 +33,13 @@ class GramEx : AppCompatActivity() {
 
         ans = findViewById(R.id.answer)
         questArr=intent.getStringArrayExtra(Q_ARR)
-        println("questArr= ${questArr.size}")
+        //println("questArr= ${questArr.size}")
         iquestArr=intent.getIntExtra(IQ_ARR,0)
-        println("iquestArr= $iquestArr")
+        //println("iquestArr= $iquestArr")
         iTrueAnswers=intent.getIntExtra(ITRUE,0)
-        println("iTrueAnswers= $iTrueAnswers")
+        //println("iTrueAnswers= $iTrueAnswers")
         position=intent.getStringExtra(POS)
-        println("position= $position")
+        //println("position= $position")
         position_txt.setText(position)
 
 

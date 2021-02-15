@@ -18,53 +18,48 @@ class MainActivity : AppCompatActivity() {
         var iTrueAnswers: Int = 0              // количество правильных ответов
         lateinit var questArr1: Array<String>  // массив вопросов и ответов неперемешанный
         val arrItems=resources.getStringArray(R.array.gramA1Items)  // список тем заданий
+        //------------- адаптер для списка разделов   -------------------------
         val adapter = ArrayAdapter < String>(this,android.R.layout.simple_list_item_1,arrItems)
         listViewItems.adapter=adapter
+        // ------------ листнер для выбора темы
         listViewItems.setOnItemClickListener{parent,view,position,id->
-            var intent=Intent(this, GramEx::class.java)
-            if (isTest) intent=Intent(this, GramExTest::class.java)
-            when (position){ // Выбор темы задачи и загрузка массива с задачами
+            var intent=Intent(this, GramExBtn::class.java)
+            if (isTest) intent=Intent(this, GramExBtnTest::class.java)
+            when (position){                                  // Выбор темы задачи и загрузка массива с задачами
                 0 -> questArr1 = resources.getStringArray(R.array.ex1)   // массив вопросов и ответов неперемешанный
                 1 -> questArr1 = resources.getStringArray(R.array.ex2)
                 2 -> questArr1 = resources.getStringArray(R.array.ex3)
                 3 -> questArr1 = resources.getStringArray(R.array.ex4)
                 4 -> questArr1 = resources.getStringArray(R.array.ex5)
                 else -> Toast.makeText(applicationContext, "чото не так", Toast.LENGTH_LONG).show()}
-            var nquestArr = questArr1.size/7                        // Количество задач
-            var nquestArr1 = questArr1.size                         // Количество элементов всего
-            var questArr = Array<String>(nquestArr1) { i->i.toString()}  // массив вопросов и ответов для перемешевания
-            questArr.forEach { println( " $it ") }
-            var itemsQuestArrList = (0..nquestArr-1).toMutableList() // создаем для с числами
-            itemsQuestArrList.shuffle()                            // случайно сортируем
-        //    itemsQuestArrList.forEach{ println( "itemsQuestArrList $it ")}
+
+        var nquestArr = questArr1.size/7                        // Количество задач
+        var nquestArr1 = questArr1.size                         // Количество элементов всего
+        var questArr = Array<String>(nquestArr1) { i->i.toString()}  // массив вопросов и ответов для перемешевания
+        var itemsQuestArrList = (0..nquestArr-1).toMutableList() // создаем для с числами
+        itemsQuestArrList.shuffle()                            // случайно сортируем
         // -------------- заполняем перемешанный массив вопросов и ответов ----------------
-            var j=0
-            itemsQuestArrList.forEach{
-         //       println( " цикл it= $it j= $j")
-                for (i in 0 .. 6){
-                    questArr[j*7+i]=questArr1[it*7+i]
-                }
-                j+=1
-            }          // Создаем отсортированный массив
-            // готовим параметры для передачи и другую активность
-            intent.putExtra(GramEx.Q_ARR,questArr)           // массив вопросов и ответов
-            intent.putExtra(GramEx.IQ_ARR,iquestArr)         // текущий индекс массив вопросов и ответов
-            intent.putExtra(GramEx.ITRUE,iTrueAnswers)       // количество правильных ответов
-            intent.putExtra(GramEx.POS,arrItems[position])   // тема задания
-            startActivity(intent)}
+        var j=0
+        itemsQuestArrList.forEach{ // Создаем отсортированный массив
+            for (i in 0 .. 6){
+                questArr[j*7+i]=questArr1[it*7+i]}
+            j+=1 }
+        // готовим параметры для передачи и другую активность
+        intent.putExtra(GramEx.Q_ARR,questArr)           // массив вопросов и ответов
+        intent.putExtra(GramEx.IQ_ARR,iquestArr)         // текущий индекс массив вопросов и ответов
+        intent.putExtra(GramEx.ITRUE,iTrueAnswers)       // количество правильных ответов
+        intent.putExtra(GramEx.POS,arrItems[position])   // тема задания
+        startActivity(intent)}
     }
     fun onClickFinish(view: View) {
         this@MainActivity.finish()
-        exitProcess(0)
-    }
+        exitProcess(0)}
     fun onClickLearn(view: View) {
         isTest=false
         butTest.setBackgroundColor(Color.RED)
-        butLearn.setBackgroundColor(Color.GREEN)
-    }
+        butLearn.setBackgroundColor(Color.GREEN)}
     fun onClickTest(view: View) {
         isTest=true
         butTest.setBackgroundColor(Color.GREEN)
-        butLearn.setBackgroundColor(Color.RED)
-    }
+        butLearn.setBackgroundColor(Color.RED)}
 }
