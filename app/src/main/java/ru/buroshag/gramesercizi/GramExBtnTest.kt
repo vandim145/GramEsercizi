@@ -74,11 +74,10 @@ class GramExBtnTest : AppCompatActivity() {
             toast.show()
         }
         iquestArr += 7
-        val ii=Integer.parseInt(questArr[iquestArr+1])
         //println(" Btn iquestArr = $iquestArr size ${questArr.size}")
         if (iquestArr >= questArr.size) { // конец массива вопросов
             //println("Зашел btn")
-            val toast = Toast.makeText(applicationContext, "1 Конец упражнения. Правильных ответов $iTrueAnswers", Toast.LENGTH_LONG)
+            val toast = Toast.makeText(applicationContext, "Конец упражнения. Правильных ответов $iTrueAnswers", Toast.LENGTH_LONG)
             toast.show()
             val intent1= Intent(this, EndOfEx::class.java)
             intent1.putExtra(Q_ARR,questArr)
@@ -90,7 +89,7 @@ class GramExBtnTest : AppCompatActivity() {
         }
         var randomInt =  (Math.random()*2).toInt()   //случайно переходим в GramEx или нет
         println("btn randomInt = $randomInt")
-        if ((randomInt == 0)&&(ii>=0)){                        // Переход имесли совпало и 2й столбец не отрицательный
+        if (randomInt == 0){                        // Переход имесли совпало и 2й столбец не отрицательный
             val intent= Intent(this, GramExTest::class.java)
             intent.putExtra(Q_ARR,questArr)
             intent.putExtra(IQ_ARR,iquestArr)

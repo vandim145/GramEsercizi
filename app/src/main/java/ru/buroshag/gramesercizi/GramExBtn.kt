@@ -43,7 +43,12 @@ class GramExBtn : AppCompatActivity() {
         numbOfRightAns.text = stringText1 // меняем кол-во правильных вопросов в строке на экране
         // --- формируем вопрос
         posQuestArr = Integer.parseInt(questArr[iquestArr+1]) // второй столбец - где в строке находится вставляемый ответ, заменяется ?? с пробелом
-        questtxt = questArr[iquestArr].substring(0, posQuestArr) + "?? " + questArr[iquestArr].substring(posQuestArr) //формируем строку вопроса
+        if (posQuestArr>=0)
+        //формируем строку вопроса c вопросами
+            questtxt = questArr[iquestArr].substring(0, posQuestArr) + "?? " + questArr[iquestArr].substring(posQuestArr)
+        else
+        //формируем строку вопроса без вопросов
+            questtxt = questArr[iquestArr]
         quest.text = questtxt // и на экран
         //  случайно сортируем
         items.shuffle()
@@ -57,10 +62,10 @@ class GramExBtn : AppCompatActivity() {
 
     fun onClickA1nextBtn(view: View){
         iquestArr += 7
-        val ii=Integer.parseInt(questArr[iquestArr+1])
-        //println(" Btn iquestArr = $iquestArr size ${questArr.size}")
+        var iQuestArr=Integer.parseInt(questArr[iquestArr+1])
+        println(" Btn iquestArr = $iquestArr size ${questArr.size} ii = $iQuestArr")
         if ((iquestArr >= questArr.size)) { // конец массива вопросов
-            //println("Зашел btn")
+            println("Зашел btn")
             val toast = Toast.makeText(applicationContext, "Конец упражнения. Правильных ответов $iTrueAnswers", Toast.LENGTH_LONG)
             toast.show()
             val intent1=Intent(this, EndOfEx::class.java)
@@ -72,26 +77,30 @@ class GramExBtn : AppCompatActivity() {
             return
         }
         var randomInt =  (Math.random()*2).toInt()   //случайно переходим в GramEx или нет
-        //println("btn randomInt = $randomInt")
-        if ((randomInt == 0)&&(ii>=0)){                        // Переходим если совпало и 2й столбец не отрицательный
+        println("btn randomInt = $randomInt")
+        if (randomInt == 0){                        // Переходим если совпало и 2й столбец не отрицательный
             val intent=Intent(this, GramEx::class.java)
             intent.putExtra(Q_ARR,questArr)
             intent.putExtra(IQ_ARR,iquestArr)
             intent.putExtra(ITRUE,iTrueAnswers)
             intent.putExtra(GramEx.POS,position)
-            //println("Переходим в Ex")
+            println("Переходим в Ex")
             startActivity(intent)
-            //println("не перешли в Ex")
+            println("не перешли в Ex")
             return
         }
-        //println("Я здесь btn")
+        println("Я здесь btn")
         res.text = null
-        //println("Я здесь btn1")
+        println("Я здесь btn1")
         wasRight = false
-        //println("Я здесь btn2")
+        println("Я здесь btn2")
 
-        val iQuestArr = Integer.parseInt(questArr[iquestArr + 1])
-        questtxt = questArr[iquestArr].substring(0, iQuestArr) + " ?? " + questArr[iquestArr].substring(iQuestArr)
+        iQuestArr = Integer.parseInt(questArr[iquestArr + 1])
+        if (iQuestArr >=0)
+           questtxt = questArr[iquestArr].substring(0, iQuestArr) + " ?? " + questArr[iquestArr].substring(iQuestArr)
+        else
+            questtxt = questArr[iquestArr]
+
         quest.text = questtxt
         items.shuffle()
         // --- выводим ответы
@@ -100,7 +109,7 @@ class GramExBtn : AppCompatActivity() {
         answ3.text=questArr[iquestArr+items[2]]
         answ4.text=questArr[iquestArr+items[3]]
         answ5.text=questArr[iquestArr+items[4]]
-        //println("Я здесь btn3")
+        println("Я здесь btn3")
     }
 
     fun onClickBack(view: View) { //  Идем назад

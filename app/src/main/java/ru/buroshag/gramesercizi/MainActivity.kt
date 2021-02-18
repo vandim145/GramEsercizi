@@ -18,13 +18,21 @@ class MainActivity : AppCompatActivity() {
         var iTrueAnswers: Int = 0              // количество правильных ответов
         lateinit var questArr1: Array<String>  // массив вопросов и ответов неперемешанный
         val arrItems=resources.getStringArray(R.array.gramA1Items)  // список тем заданий
+        val arrIsKeyboard=resources.getStringArray(R.array.gramA1ItemsIsKeyboard) // будет ввод или нет
         //------------- адаптер для списка разделов   -------------------------
         val adapter = ArrayAdapter < String>(this,android.R.layout.simple_list_item_1,arrItems)
         listViewItems.adapter=adapter
         // ------------ листнер для выбора темы
         listViewItems.setOnItemClickListener{parent,view,position,id->
             var intent=Intent(this, GramExBtn::class.java)
-            if (isTest) intent=Intent(this, GramExBtnTest::class.java)
+            if (arrIsKeyboard[position] == "0") {
+                if (isTest) intent=Intent(this, GramExBtnTestNoEnter::class.java)
+                else        intent=Intent(this,GramExBtnNoEnter::class.java)
+            }   else
+            {
+                if (isTest) intent=Intent(this, GramExBtnTest::class.java)
+                else        intent=Intent(this,GramExBtn::class.java)
+            }
             when (position){                                  // Выбор темы задачи и загрузка массива с задачами
                 0 -> questArr1 = resources.getStringArray(R.array.ex1)   // массив вопросов и ответов неперемешанный
                 1 -> questArr1 = resources.getStringArray(R.array.ex2)
